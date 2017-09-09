@@ -15,6 +15,8 @@ const (
 	dbname   = "itradecoin"
 )
 
+// itradecointestdb
+// itradecoin
 type DbCon struct {
 	Db *sql.DB
 }
@@ -29,12 +31,13 @@ func OpenConnection() (*DbCon, error) {
 
 	if err != nil {
 		//panic(err)
-		return nil, err
+		//return nil, err
+		fmt.Println("Database connection failed due to", err)
 	}
 
 	if err = db.Ping(); err != nil {
 		fmt.Println("Database connection failed due to", err)
-		return nil, err
+		//return nil, err
 	}
 	fmt.Println("Successfully connected To DB!")
 
@@ -46,3 +49,19 @@ func OpenConnection() (*DbCon, error) {
 func (con *DbCon) Close() error {
 	return con.Db.Close()
 }
+
+//qy := "INSERT INTO market_data (pair,ask,bid,last,high24hr,low24hr,volume,base_volume,exchange_id)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)"
+//stmt, _ := con.Db.Prepare(qy)
+/*if err != nil {
+	fmt.Println("Insert Failed Due To: ", err)
+	//fmt.Println(err)
+
+}*/
+//_, err = stmt.Exec(pair, ask, bid, last, high24hr, low24hr, vol, base_vol, exchange_id)
+//"INSERT INTO market_data (pair,ask,bid,last,high24hr,low24hr,volume,base_volume,exchange_id)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)"
+//checkErr(err)
+//_, err := con.Db.Exec("INSERT INTO market_data (pair,ask,bid,last,high24hr,low24hr,volume,base_volume,exchange_id)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)", pair, ask, bid, last, high24hr, low24hr, vol, base_vol, exchange_id)
+//if err != nil {
+//fmt.Println("Execute Insert Failed Due To: ", err)
+//fmt.Println(err)
+//}
