@@ -3,7 +3,7 @@ package microservices
 import (
 	"database/sql"
 	"fmt"
-
+	// this imports postgress drivers for db.
 	_ "github.com/lib/pq"
 )
 
@@ -15,16 +15,16 @@ const (
 	dbname   = "itradecoin"
 )
 
-// itradecointestdb
-// itradecoin
+// DbCon this hold pointer to db
 type DbCon struct {
 	Db *sql.DB
 }
 
-var psqlInfo string = fmt.Sprintf("host=%s port=%d user=%s "+
+var psqlInfo = fmt.Sprintf("host=%s port=%d user=%s "+
 	"password=%s dbname=%s sslmode=disable",
 	host, port, user, password, dbname)
 
+// OpenConnection is use open the connection
 func OpenConnection() (*DbCon, error) {
 
 	db, err := sql.Open("postgres", psqlInfo)
@@ -46,6 +46,7 @@ func OpenConnection() (*DbCon, error) {
 	}, nil
 }
 
+// Close  our db conncetion.
 func (con *DbCon) Close() error {
 	return con.Db.Close()
 }

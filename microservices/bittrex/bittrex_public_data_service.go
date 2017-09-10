@@ -6,7 +6,8 @@ import (
 	"msservices/microservices"
 )
 
-func BittrexMarketData() {
+// BittrexMarketData is use to return market data for Bittrex Exchange and will be used as bittrex.BittrexMarketData by other packages;.
+func BittrexMarketData() []byte {
 	con, err := microservices.OpenConnection()
 	if err != nil {
 		//return err
@@ -33,8 +34,8 @@ func BittrexMarketData() {
 			fmt.Println("Got Sucess As False:", val)
 		}
 		if key == "result" {
-			for key2, val2 := range val.([]interface{}) {
-				fmt.Println("Got Key2 As:", key2, "||", "Got Values2 As:", val2)
+			for _, val2 := range val.([]interface{}) {
+				//fmt.Println("Got Key2 As:", key2, "||", "Got Values2 As:", val2)
 				pair := val2.(map[string]interface{})["MarketName"]
 				ask := val2.(map[string]interface{})["Ask"]
 				bid := val2.(map[string]interface{})["Bid"]
@@ -42,10 +43,10 @@ func BittrexMarketData() {
 				high24hr := val2.(map[string]interface{})["High"]
 				low24hr := val2.(map[string]interface{})["Low"]
 				vol := val2.(map[string]interface{})["Volume"]
-				base_vol := val2.(map[string]interface{})["BaseVolume"]
-				exchange_id := 2
+				baseVol := val2.(map[string]interface{})["BaseVolume"]
+				exchangeID := 2
 
-				_, err := con.Db.Exec("INSERT INTO market_data (pair,ask,bid,last,high24hr,low24hr,volume,base_volume,exchange_id)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)", pair, ask, bid, last, high24hr, low24hr, vol, base_vol, exchange_id)
+				_, err := con.Db.Exec("INSERT INTO market_data (pair,ask,bid,last,high24hr,low24hr,volume,base_volume,exchange_id)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)", pair, ask, bid, last, high24hr, low24hr, vol, baseVol, exchangeID)
 				if err != nil {
 					fmt.Println("Execute Insert Failed Due To: ", err)
 				}
@@ -53,5 +54,5 @@ func BittrexMarketData() {
 			}
 		}
 	}
-
+	return body
 }
