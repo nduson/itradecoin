@@ -2,6 +2,7 @@ package microservices
 
 import (
 	"fmt"
+	"time"
 )
 
 // TruncateMarketData this delect market data after set time interval
@@ -15,10 +16,10 @@ func TruncateMarketData() {
 	fmt.Println("Enter truncate market data sucessfully")
 	//for {
 	fmt.Println("truncateMarketData Func waiting for 24hrs to truncate data")
+	timeInterval := GetTimerInterval("TruncateMarketData")
+	time.Sleep(timeInterval * time.Second)
 
-	//time.Sleep(100 * time.Second)
-
-	res, err := con.Db.Exec("DELETE FROM market_data WHERE ctid IN (SELECT ctid FROM market_data LIMIT 100)")
+	res, err := con.Db.Exec("DELETE FROM market_data WHERE ctid IN (SELECT ctid FROM market_data LIMIT 1000)")
 	if err != nil {
 		fmt.Println("Execute Insert Failed Due To: ", err)
 	}
