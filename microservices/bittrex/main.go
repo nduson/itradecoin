@@ -12,6 +12,7 @@ func main() {
 
 	http.HandleFunc("/", index)
 	http.HandleFunc("/bittrex_ticker", public.BittrexMarketData)
+	http.HandleFunc("/pair/price", public.AskBidPair)
 	http.HandleFunc("/stat", public.Statz)
 	http.ListenAndServe(":5052", nil)
 }
@@ -58,6 +59,6 @@ func init() {
 	fmt.Println("Developer Name: ", developer)
 
 	// start bittrex market data service
-	marketData()
+	//marketData()
 	//clearStatData()
 }

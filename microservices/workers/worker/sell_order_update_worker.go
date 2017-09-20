@@ -18,7 +18,7 @@ func SellOrderUpdateWorker() {
 	}
 	defer con.Close()
 
-	row, err := con.Db.Query("SELECT sell_order.order_number,sell_order.account_id,sell_order.exchange_id,apks.key,apks.secret FROM sell_order INNER JOIN apks ON apks.account_id = sell_order.account_id WHERE sell_order.work_status = 0")
+	row, err := con.Db.Query("SELECT sell_orders.order_number,sell_orders.account_id,sell_orders.exchange_id,apks.key,apks.secret FROM sell_orders INNER JOIN apks ON apks.account_id = sell_orders.account_id WHERE sell_orders.work_status = 0")
 	if err != nil {
 		fmt.Println("Select Failed Due To: ", err)
 	}
@@ -68,7 +68,7 @@ func SellOrderUpdateWorker() {
 				fee := val.(map[string]interface{})["fee"]
 				//orderDate := val2.(map[string]interface{})["order_date"]
 
-				_, err := con.Db.Exec("UPDATE sell_order SET actual_rate = $1, actual_quantity= $2,order_status =$3,txn_fee=$4 WHERE order_number = $5", actualRate, actualQty, orderStatus, library.RoundDown(fee.(float64), 8), orderID)
+				_, err := con.Db.Exec("UPDATE sell_orders SET actual_rate = $1, actual_quantity= $2,order_status =$3,txn_fee=$4 WHERE order_number = $5", actualRate, actualQty, orderStatus, library.RoundDown(fee.(float64), 8), orderID)
 				if err != nil {
 					fmt.Println("Execute Insert Failed Due To: ", err)
 				}

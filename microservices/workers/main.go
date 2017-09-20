@@ -11,6 +11,8 @@ import (
 
 func main() {
 
+	//worker.SellWorker()
+
 	workers()
 
 	http.HandleFunc("/", index)
@@ -24,8 +26,9 @@ func workers() {
 		timeInterval := microservices.GetTimerInterval("BuyOrderUpdateWorker")
 		time.Sleep(timeInterval * time.Second)
 
-		go worker.BuyOrderUpdateWorker()
-		go worker.SellOrderUpdateWorker()
+		//go worker.BuyOrderUpdateWorker()
+		//go worker.SellOrderUpdateWorker()
+		go worker.SellWorker()
 		count = count + 1
 
 	}

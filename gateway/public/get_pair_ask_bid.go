@@ -7,23 +7,6 @@ import (
 	"net/http"
 )
 
-// AskBid is a struct use to return ask and bid of request pair.
-type AskBid struct {
-	Success string  `json:"success"`
-	Message string  `json:"message"`
-	Market  string  `json:"market"`
-	Ask     float64 `json:"ask"`
-	Bid     float64 `json:"bid"`
-	High    float64 `json:"high"`
-	Low     float64 `json:"low"`
-	Volume  float64 `json:"volume"`
-}
-
-// MainAskBid1 this is use to get single request
-type MainAskBid1 struct {
-	Values []AskBid
-}
-
 // GetAskBid is the function that will return the ask and bid or error.
 func GetAskBid(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -40,7 +23,7 @@ func GetAskBid(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, string(res))
 		return
 	}
-	if eID == "2" {
+	if eID == "1" {
 
 		body, err := GetTicker("http://localhost:5052/bittrex_ticker")
 		//fmt.Fprint(w, string(body))

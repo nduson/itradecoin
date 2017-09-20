@@ -16,7 +16,7 @@ var RequestNo = 0
 
 var body []byte
 
-// BittrexMarketData is use to return market data for Bittrex Exchange and will be used as bittrex.BittrexMarketData by other packages;.
+// BittrexMarketData1 is use to return market data for Bittrex Exchange and will be used as bittrex.BittrexMarketData by other packages;.
 func BittrexMarketData1(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Entered BittrexMarketData Func")
 
@@ -30,6 +30,7 @@ func BittrexMarketData1(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Statz use t0 show statz
 func Statz(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...........................................Entered Stat Function............................................................................")
 	var n, smallest, biggest time.Duration

@@ -15,6 +15,7 @@ func main() {
 	//marketData()
 	http.HandleFunc("/", index)
 	http.HandleFunc("/ticker", public.GetAskBid)
+	http.HandleFunc("/pair/price", public.AskBidPair)
 	http.HandleFunc("/websocket", public.Websocket)
 	http.HandleFunc("/test", test)
 	http.HandleFunc("/stat", stat)
